@@ -101,6 +101,7 @@ function App() {
     upiId: "",
     netBanking: "",
     studentEmail: "",
+    location: "",
   });
 
   function handleSelectPlan(plan) {
@@ -151,6 +152,7 @@ function App() {
         time: now.toLocaleTimeString(),
         paymentMethod,
         paymentId: `PAY${Math.floor(Math.random()*1000000)}`,
+        location: fakeInputs.location,
         ...(selectedPlan === "Student & Institutional Discounts" ? { studentEmail: fakeInputs.studentEmail.trim() } : {}),
       };
       setBookingDetails(booking);
@@ -158,7 +160,7 @@ function App() {
       let bookings = [];
       try {
         bookings = JSON.parse(localStorage.getItem("peacepod_bookings") || "[]");
-      } catch {}
+  } catch { /* ignore JSON parse error */ }
       bookings.push(booking);
       localStorage.setItem("peacepod_bookings", JSON.stringify(bookings));
     }, 2200);
@@ -178,6 +180,38 @@ function App() {
               <>
                 <div style={{marginBottom:'1.2rem',color:'#444',fontWeight:500,textAlign:'center'}}>Choose payment method and enter details:</div>
                 <div style={{width:'100%',marginBottom:'1.2rem'}}>
+                  {/* Location select for all plans */}
+                  <select value={fakeInputs.location} onChange={e=>setFakeInputs(f=>({...f,location:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} required>
+                    <option value="">Select Location</option>
+                    <optgroup label="Maharashtra">
+                      <option value="Mumbai, Maharashtra">Mumbai</option>
+                      <option value="Pune, Maharashtra">Pune</option>
+                    </optgroup>
+                    <optgroup label="Delhi">
+                      <option value="Delhi, Delhi">Delhi</option>
+                    </optgroup>
+                    <optgroup label="Karnataka">
+                      <option value="Bangalore, Karnataka">Bangalore</option>
+                    </optgroup>
+                    <optgroup label="Telangana">
+                      <option value="Hyderabad, Telangana">Hyderabad</option>
+                    </optgroup>
+                    <optgroup label="Tamil Nadu">
+                      <option value="Chennai, Tamil Nadu">Chennai</option>
+                    </optgroup>
+                    <optgroup label="West Bengal">
+                      <option value="Kolkata, West Bengal">Kolkata</option>
+                    </optgroup>
+                    <optgroup label="Goa">
+                      <option value="Goa, Goa">Goa</option>
+                    </optgroup>
+                    <optgroup label="Gujarat">
+                      <option value="Ahmedabad, Gujarat">Ahmedabad</option>
+                      <option value="Surat, Gujarat">Surat</option>
+                      <option value="Vadodara, Gujarat">Vadodara</option>
+                      <option value="Rajkot, Gujarat">Rajkot</option>
+                    </optgroup>
+                  </select>
                   {/* Student email for student plan */}
                   {selectedPlan === 'Student & Institutional Discounts' && (
                     <input type="email" placeholder="Student/Institutional Email ID" value={fakeInputs.studentEmail} onChange={e=>setFakeInputs(f=>({...f,studentEmail:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} required />
@@ -218,6 +252,7 @@ function App() {
                   <div><b>Price:</b> {bookingDetails.price}</div>
                   <div><b>Date:</b> {bookingDetails.date}</div>
                   <div><b>Time:</b> {bookingDetails.time}</div>
+                  <div><b>Location:</b> {bookingDetails.location}</div>
                   <div><b>Payment ID:</b> {bookingDetails.paymentId}</div>
                   {bookingDetails.studentEmail && (
                     <div><b>Email:</b> {bookingDetails.studentEmail}</div>
