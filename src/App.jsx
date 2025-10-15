@@ -183,33 +183,11 @@ function App() {
                   {/* Location select for all plans */}
                   <select value={fakeInputs.location} onChange={e=>setFakeInputs(f=>({...f,location:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} required>
                     <option value="">Select Location</option>
-                    <optgroup label="Maharashtra">
-                      <option value="Mumbai, Maharashtra">Mumbai</option>
-                      <option value="Pune, Maharashtra">Pune</option>
-                    </optgroup>
-                    <optgroup label="Delhi">
-                      <option value="Delhi, Delhi">Delhi</option>
-                    </optgroup>
-                    <optgroup label="Karnataka">
-                      <option value="Bangalore, Karnataka">Bangalore</option>
-                    </optgroup>
-                    <optgroup label="Telangana">
-                      <option value="Hyderabad, Telangana">Hyderabad</option>
-                    </optgroup>
-                    <optgroup label="Tamil Nadu">
-                      <option value="Chennai, Tamil Nadu">Chennai</option>
-                    </optgroup>
-                    <optgroup label="West Bengal">
-                      <option value="Kolkata, West Bengal">Kolkata</option>
-                    </optgroup>
-                    <optgroup label="Goa">
-                      <option value="Goa, Goa">Goa</option>
-                    </optgroup>
-                    <optgroup label="Gujarat">
-                      <option value="Ahmedabad, Gujarat">Ahmedabad</option>
-                      <option value="Surat, Gujarat">Surat</option>
-                      <option value="Vadodara, Gujarat">Vadodara</option>
-                      <option value="Rajkot, Gujarat">Rajkot</option>
+                    <optgroup label="Ahmedabad, Gujarat">
+                      <option value="Ahmedabad, Gujarat - Malls">Malls</option>
+                      <option value="Ahmedabad, Gujarat - Airports">Airports</option>
+                      <option value="Ahmedabad, Gujarat - Railway station and Bus terminals">Railway station and Bus terminals</option>
+                      <option value="Ahmedabad, Gujarat - Co-working space / offices">Co-working space / offices</option>
                     </optgroup>
                   </select>
                   {/* Student email for student plan */}
@@ -223,7 +201,14 @@ function App() {
                   </div>
                   {/* Fake Inputs */}
                   {paymentMethod==='card' && (
-                    <input type="text" placeholder="Card Number" value={fakeInputs.cardNumber} onChange={e=>setFakeInputs(f=>({...f,cardNumber:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} />
+                    <>
+                      <input type="text" placeholder="Card Number" value={fakeInputs.cardNumber} onChange={e=>setFakeInputs(f=>({...f,cardNumber:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} />
+                      {/* QR image below Card Number */}
+                      <div style={{marginBottom:'0.7rem',textAlign:'center'}}>
+                        <label style={{fontWeight:600,marginBottom:'0.3rem',display:'block'}}>Scan QR</label>
+                        <img src="assets/QR.jpg" alt="Demo QR" style={{width:'120px',height:'120px',objectFit:'contain',border:'1.5px solid #e0e7ff',borderRadius:'1em',background:'#fff',margin:'0 auto'}} />
+                      </div>
+                    </>
                   )}
                   {paymentMethod==='upi' && (
                     <input type="text" placeholder="UPI ID" value={fakeInputs.upiId} onChange={e=>setFakeInputs(f=>({...f,upiId:e.target.value}))} style={{width:'100%',padding:'0.7em',borderRadius:'0.8em',border:'1.5px solid #e0e7ff',marginBottom:'0.7rem',fontSize:'1.05rem'}} />
